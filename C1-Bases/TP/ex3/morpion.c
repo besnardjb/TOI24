@@ -73,10 +73,57 @@ int morpion_display(struct morpion *m)
 
     return 0;
 }
-
+// 0 == Pas gagné
+// 1 == Gagné
 int morpion_check(struct morpion *m)
 {
-    int cntx=0, cnty=0;
+    int i, j;
 
-    
+    for(i = 0 ;i < 3; i++)
+    {
+        char a = morpion_get(m, i, 0);
+        char b = morpion_get(m, i, 1);
+        char c = morpion_get(m, i, 2);
+        
+        if ((a^b^c) == a)
+        {
+            return 1;
+        }
+
+        char ca = morpion_get(m, 0,i);
+        char cb = morpion_get(m, 1, i);
+        char cc = morpion_get(m, 2, i);
+        
+        if ((ca^cb^cc) == ca)
+        {
+            return 1;
+        }
+    }
+
+    int won_diagonal1 = 1;
+    int won_diagonal2 = 1;
+
+    for(i = 0; i < 3; i++)
+    {
+        if( morpion_get(m, 0, 0) != morpion_get(m, i, i))
+        {
+            won_diagonal1 = 0;
+        }
+        if( morpion_get(m, 2, 2) != morpion_get(m, 3-i, i))
+        {
+            won_diagonal2 = 0;
+        }
+    }
+
+    if(won_diagonal1)
+    {
+        return 1;
+    }
+
+    if(won_diagonal2)
+    {
+        return 1;
+    }
+
+    return 0;
 }
