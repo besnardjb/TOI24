@@ -1,0 +1,2 @@
+gcc m.c -DLOL
+gcc m.c
